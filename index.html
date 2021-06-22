@@ -5,12 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Slider</title>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Style css -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="app">
-
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col arrow" @click="previousCounter">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="col text-center">
+                <transition>
+                    <img v-show="isLoad" class="photo" :src="pathImg[counter]" :alt="altImg[counter]" @load="loaded">
+                </transition>
+                <div v-show="!isLoad" class="loading center-load"></div>
+            </div>
+            <div class="col arrow" @click="nextCounter">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col thumbnail" v-for="(item, index) in pathImg" @click="changeCounter(index)">
+                <img v-bind:class="counter === index && 'active'" :src="item" :alt="altImg[index]">
+            </div>
+        </div>
     </div>
     <!-- Script Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
